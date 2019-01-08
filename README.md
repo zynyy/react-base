@@ -1,3 +1,67 @@
+# 说明
+
+## webpack 包
+
+1. `antd` React Ui 组件库 蚂蚁金服 出品
+  github 地址: <https://github.com/ant-design/ant-design>, npm 地址 <https://www.npmjs.com/package/antd>,
+  官网<https://ant.design/docs/react/introduce>
+
+1. `axios` promise对象 HTTP 请求库 [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)是 es6的知识点。如果浏览器不支持 promise 可以添加 [es6-promise](https://www.npmjs.com/package/es6-promise) 包兼容。 js 原生请求有两个 `XMLHttpRequest(XHR)` 和 `fetch`
+
+1. `classnames` 动态控制 HTML元素中的 class 属性值
+  github 地址: <https://github.com/JedWatson/classnames>, npm 地址: <https://www.npmjs.com/package/classnames>
+
+1. `moment` 时间处理库
+  github 地址: <https://github.com/moment/moment>, npm 地址 <https://www.npmjs.com/package/moment>
+
+1. `react-document-title` 动态的修改 HTML 文档 的标题
+  github 地址: <https://github.com/gaearon/react-document-title>, npm 地址 <https://www.npmjs.com/package/react-document-title>
+
+1. `react-router-dom` 路由切换
+  github 地址: <https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom>, npm 地址 <https://www.npmjs.com/package/react-router-dom>
+
+## 开发工具依赖包
+
+1. `eslint`: js 代码规范
+1. `pre-commit`: 只有通过代码规范检查才可以 git 提交到远程仓库
+1. `cross-env`: 设置开发环境变量
+1. `nodemon`: 检测文件变化
+1. `prettier`: 代码格式化
+1. `npm-watch`: 监控文件变化重新启动
+1. `npm-check`: 检查项目包是否有需要更新的 github 地址<https://github.com/dylang/npm-check>
+1. `craco-less` 是 `@craco/craco` 包开发的插件，主要是为了 css 的 less 预处理器。更多是为了修改 antd 包的主题
+  github 地址: <https://github.com/FormAPI/craco-less>, npm 地址 <https://www.npmjs.com/package/craco-less>
+1. `@craco/craco` 用来修改 create-react-app v2 即`react-scripts: ^2.0.0`版本以上 webpack 的配置
+  github 地址: <https://github.com/sharegate/craco>, npm 地址: <https://www.npmjs.com/package/@craco/craco>
+1. `webpack-bundle-analyzer` 打包之后的依赖关系图
+1. `compression-webpack-plugin` 减少打包文件过大导致下载很慢 需要 nginx 的 gzip 模块配置
+1. `uglifyjs-webpack-plugin`
+
+## nginx 之 gzip 模块配置
+
+ 查看是否开启了 gzip 只需看 请求头 的 `content-encoding`的值是不是 gzip
+
+```nginx
+// 动态压缩
+<https://nginx.org/en/docs/http/ngx_http_gzip_module.html>
+http {
+  gzip on;
+  gzip_min_length  1k;
+  gzip_buffers     4 32k;
+  gzip_http_version 1.1;
+  gzip_comp_level 2;
+  gzip_types       text/plain application/x-javascript text/css application/xml;
+  gzip_vary on;
+  gzip_disable "MSIE [1-6].";
+}
+// 静态压缩
+<https://nginx.org/en/docs/http/ngx_http_gzip_static_module.html#gzip_static>
+http {
+  gzip_static  on;
+}
+
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
