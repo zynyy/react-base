@@ -29,6 +29,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --fix src --ext .js,.jsx",
     "lint-stage": "lint-staged",
+    "deploy": "node ./scripts/publish.js",
     "prettier": "node ./scripts/prettier.js"
   },
   "pre-commit": [
@@ -73,6 +74,7 @@
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-react-hooks": "^3.0.0",
+    "gh-pages": "^2.2.0",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "lint-staged": "^10.1.1",
