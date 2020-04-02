@@ -6,6 +6,16 @@ module.exports = {
     jest: true,
     es6: true,
   },
+  settings: {
+    'import/resolver': {
+      'eslint-import-resolver-custom-alias': {
+        alias: {
+          '@': './src',
+        },
+        extensions: ['.js', '.jsx', '.json', '.svg'],
+      },
+    },
+  },
   plugins: ['react', 'react-hooks'],
   parser: 'babel-eslint',
   rules: {
