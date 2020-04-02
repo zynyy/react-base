@@ -1,3 +1,5 @@
+const path = require('path');
+
 /* eslint-disable import/no-extraneous-dependencies */
 const CracoLessPlugin = require('craco-less');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -5,6 +7,8 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const theme = require('./antd.theme');
+
+const resolve = (dir) => path.resolve(__dirname, dir);
 
 module.exports = {
   babel: {
@@ -20,6 +24,9 @@ module.exports = {
     ],
   },
   webpack: {
+    alias: {
+      '@/': resolve('src'),
+    },
     plugins: [new BundleAnalyzerPlugin(), new CompressionWebpackPlugin()],
     configure: {
       optimization: {

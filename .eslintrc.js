@@ -6,7 +6,7 @@ module.exports = {
     jest: true,
     es6: true,
   },
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks'],
   parser: 'babel-eslint',
   rules: {
     'no-console': [2, { allow: ['warn', 'error'] }],

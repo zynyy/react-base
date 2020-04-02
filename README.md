@@ -14,9 +14,6 @@
 1. `moment` 时间处理库
   github 地址: <https://github.com/moment/moment>, npm 地址 <https://www.npmjs.com/package/moment>
 
-1. `react-document-title` 动态的修改 HTML 文档 的标题
-  github 地址: <https://github.com/gaearon/react-document-title>, npm 地址 <https://www.npmjs.com/package/react-document-title>
-
 1. `react-router-dom` 路由切换
   github 地址: <https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom>, npm 地址 <https://www.npmjs.com/package/react-router-dom>
 
@@ -28,10 +25,9 @@
 1. `nodemon`: 检测文件变化
 1. `prettier`: 代码格式化
 1. `npm-watch`: 监控文件变化重新启动
-1. `npm-check`: 检查项目包是否有需要更新的 github 地址<https://github.com/dylang/npm-check>
 1. `craco-less` 是 `@craco/craco` 包开发的插件，主要是为了 css 的 less 预处理器。更多是为了修改 antd 包的主题
   github 地址: <https://github.com/FormAPI/craco-less>, npm 地址 <https://www.npmjs.com/package/craco-less>
-1. `@craco/craco` 用来修改 create-react-app v2 即`react-scripts: ^2.0.0`版本以上 webpack 的配置
+1. `@craco/craco` 用来修改 create-react-app 脚手架  webpack 的配置
   github 地址: <https://github.com/sharegate/craco>, npm 地址: <https://www.npmjs.com/package/@craco/craco>
 1. `webpack-bundle-analyzer` 打包之后的依赖关系图
 1. `compression-webpack-plugin` 减少打包文件过大导致下载很慢 需要 nginx 的 gzip 模块配置

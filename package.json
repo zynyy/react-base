@@ -3,16 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.11.0",
-    "axios": "^0.18.0",
+    "@ant-design/icons": "^4.0.5",
+    "antd": "^4.1.0",
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "escodegen": "^1.14.1",
+    "esprima": "^4.0.1",
+    "estraverse": "^5.0.0",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-document-title": "^2.0.3",
-    "react-dom": "^16.6.3",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react": "^16.13.1",
+    "react-dnd": "^10.0.2",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.4.1",
+    "react-window": "^1.8.5",
+    "resize-observer-polyfill": "^1.5.1"
   },
   "scripts": {
     "watch": "npm-watch start",
@@ -20,7 +26,6 @@
     "build": "cross-env NODE_ENV=production craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "foo": "echo \"fooo\" && exit 0",
     "lint": "eslint --fix src --ext .js,.jsx",
     "lint-stage": "lint-staged",
     "prettier": "node ./scripts/prettier.js"
@@ -41,9 +46,6 @@
       "stylelint --syntax less",
       "node ./scripts/pre-prettier.js",
       "git add"
-    ],
-    "components/*/demo/*.md": [
-      "npm run lint-staged:demo"
     ]
   },
   "eslintConfig": {
@@ -56,27 +58,28 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@craco/craco": "^3.2.3",
-    "babel-eslint": "9.0.0",
+    "@craco/craco": "^5.6.4",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.11.0",
-    "compression-webpack-plugin": "^2.0.0",
+    "compression-webpack-plugin": "^3.1.0",
     "craco-less": "^1.5.2",
-    "cross-env": "^5.2.0",
-    "eslint": "5.6.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.3.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
-    "lint-staged": "^8.1.0",
-    "npm-watch": "^0.5.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
+    "lint-staged": "^10.1.1",
+    "npm-watch": "^0.6.0",
     "pre-commit": "^1.2.2",
-    "prettier": "1.15.3",
-    "source-map-explorer": "^1.6.0",
-    "stylelint": "^9.9.0",
-    "stylelint-config-prettier": "^4.0.0",
-    "stylelint-config-standard": "^18.2.0",
+    "prettier": "^2.0.2",
+    "source-map-explorer": "^2.4.2",
+    "stylelint": "^13.2.1",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-standard": "^20.0.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack-bundle-analyzer": "^3.0.3"
   }
