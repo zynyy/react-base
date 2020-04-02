@@ -18,9 +18,6 @@ class App extends Component {
   render() {
     const { data } = this.state;
 
-    // eslint-disable-next-line
-    console.log(2);
-
     return (
       <div className="App">
         <header className="App-header">

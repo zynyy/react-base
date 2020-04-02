@@ -19,11 +19,12 @@
 
 ## 开发工具依赖包
 
-1. `eslint`: js 代码规范
+1. `eslint`: js 代码规范 <https://eslint.org/docs/rules/>
+1. `stylelint`: CSS 代码规范 <https://stylelint.io/user-guide/rules/>
+1. `prettier`: 代码格式化 <https://prettier.io/docs/en/index.html>
 1. `pre-commit`: 只有通过代码规范检查才可以 git 提交到远程仓库
 1. `cross-env`: 设置开发环境变量
 1. `nodemon`: 检测文件变化
-1. `prettier`: 代码格式化
 1. `npm-watch`: 监控文件变化重新启动
 1. `craco-less` 是 `@craco/craco` 包开发的插件，主要是为了 css 的 less 预处理器。更多是为了修改 antd 包的主题
   github 地址: <https://github.com/FormAPI/craco-less>, npm 地址 <https://www.npmjs.com/package/craco-less>

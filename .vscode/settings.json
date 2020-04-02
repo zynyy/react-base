@@ -1,0 +1,16 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.fontSize": 16,
+  "editor.wordWrap": "on",
+  "files.eol": "\n",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "window.zoomLevel": 0,
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
+  "javascript.updateImportsOnFileMove.enabled": "always"
+}
