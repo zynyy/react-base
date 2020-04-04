@@ -9,6 +9,7 @@ const {
   addWebpackAlias,
   addWebpackExternals,
   addDecoratorsLegacy,
+  addWebpackModuleRule,
 } = require('customize-cra');
 
 const theme = require('./antd.theme');
@@ -29,4 +30,22 @@ module.exports = override(
     '@': path.resolve(__dirname, './src/'),
   }),
   useEslintRc('.eslintrc.js'),
+  addWebpackModuleRule({
+    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'babel-loader',
+      },
+      {
+        loader: 'url-loader',
+      },
+      {
+        loader: '@svgr/webpack',
+        options: {
+          babel: false,
+          icon: true,
+        },
+      },
+    ],
+  }),
 );
