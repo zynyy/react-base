@@ -5,7 +5,6 @@ const {
   override,
   fixBabelImports,
   addLessLoader,
-  useEslintRc,
   addWebpackAlias,
   addWebpackExternals,
   addDecoratorsLegacy,
@@ -13,6 +12,26 @@ const {
 } = require('customize-cra');
 
 const theme = require('./antd.theme');
+
+const eslintConfig = require('./.eslintrc.js');
+
+const useEslintConfig = (configRules) => (config) => {
+  config.module.rules = config.module.rules.map((rule) => {
+    if (rule.use && rule.use.some((use) => use.options && use.options.useEslintrc !== 0)) {
+      const ruleUse = rule.use[0];
+      const baseOptions = ruleUse.options;
+      const baseConfig = baseOptions.baseConfig || {};
+      ruleUse.options = {
+        useEslintrc: false,
+        ignore: true,
+        baseConfig: { ...baseConfig, ...configRules },
+      };
+      return rule;
+    }
+    return rule;
+  });
+  return config;
+};
 
 module.exports = override(
   fixBabelImports('import', {
@@ -23,13 +42,15 @@ module.exports = override(
   addDecoratorsLegacy(),
   addWebpackExternals(), // cdn
   addLessLoader({
-    javascriptEnabled: true,
-    modifyVars: theme(),
+    lessOptions: {
+      javascriptEnabled: true,
+      modifyVars: theme(),
+    },
   }),
   addWebpackAlias({
     '@': path.resolve(__dirname, './src/'),
   }),
-  useEslintRc('.eslintrc.js'),
+  useEslintConfig(eslintConfig),
   addWebpackModuleRule({
     test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
     use: [

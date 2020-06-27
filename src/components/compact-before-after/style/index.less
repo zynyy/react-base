@@ -1,0 +1,75 @@
+@import '~antd/es/style/themes/default.less';
+
+.compact-group-wrapper {
+  display: inline-block;
+  width: 100%;
+  text-align: start;
+  vertical-align: top;
+}
+
+.ant-form-item-children {
+  .compact-group-wrapper {
+    vertical-align: middle;
+  }
+}
+
+.compact-wrapper {
+  display: inline-block;
+  width: 100%;
+  text-align: start;
+  vertical-align: top;
+}
+
+.compact-group {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  position: relative;
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  .ant-select-selection,
+  .ant-input-number {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .ant-input-number {
+    width: 100%;
+  }
+
+  &-add-before,
+  &-add-after {
+    position: relative;
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 11px;
+    background-color: #fafafa;
+    border-top: 1px solid @border-color-base;
+    border-bottom: 1px solid @border-color-base;
+    transition: all 0.3s;
+    width: 1px;
+    white-space: nowrap;
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  &-add-before {
+    border-left: 1px solid @border-color-base;
+    border-radius: 4px 0 0 4px;
+  }
+  &-add-after {
+    border-right: 1px solid @border-color-base;
+    border-radius: 0 4px 4px 0;
+  }
+}

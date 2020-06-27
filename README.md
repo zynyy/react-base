@@ -17,6 +17,8 @@
 1. `react-router-dom` 路由切换
   github 地址: <https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom>, npm 地址 <https://www.npmjs.com/package/react-router-dom>
 
+1. `crypto-js` 加解密
+
 ## 开发工具依赖包
 
 1. `eslint`: js 代码规范 <https://eslint.org/docs/rules/>
@@ -26,13 +28,13 @@
 1. `cross-env`: 设置开发环境变量
 1. `nodemon`: 检测文件变化
 1. `npm-watch`: 监控文件变化重新启动
-1. `craco-less` 是 `@craco/craco` 包开发的插件，主要是为了 css 的 less 预处理器。更多是为了修改 antd 包的主题
+~~`craco-less` 是 `@craco/craco` 包开发的插件，主要是为了 css 的 less 预处理器。更多是为了修改 antd 包的主题~~
   github 地址: <https://github.com/FormAPI/craco-less>, npm 地址 <https://www.npmjs.com/package/craco-less>
-1. `@craco/craco` 用来修改 create-react-app 脚手架  webpack 的配置
-  github 地址: <https://github.com/sharegate/craco>, npm 地址: <https://www.npmjs.com/package/@craco/craco>
+~~`@craco/craco` 用来修改 create-react-app 脚手架  webpack 的配置
+  github 地址: <https://github.com/sharegate/craco>, npm 地址: <https://www.npmjs.com/package/@craco/craco>~~
 1. `webpack-bundle-analyzer` 打包之后的依赖关系图
-1. `compression-webpack-plugin` 减少打包文件过大导致下载很慢 需要 nginx 的 gzip 模块配置
-1. `uglifyjs-webpack-plugin`
+~~`compression-webpack-plugin` 减少打包文件过大导致下载很慢 需要 nginx 的 gzip 模块配置~~
+~~`uglifyjs-webpack-plugin`~~
 
 ## nginx 之 gzip 模块配置
 
@@ -57,49 +59,35 @@ http {
   gzip_static  on;
 }
 
+location / {
+  try_files $uri $uri/ /index.html;
+}
 ```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 设置代理<https://create-react-app.dev/docs/proxying-api-requests-in-development>
 
-## Available Scripts
+在 `package.json` 中 添加 `"proxy": "www.domain.com"`
+在 nginx 设置
+```
+location /api {
+  proxy_pass www.domain.com;
+  proxy_set_header   X-Forwarded-Proto $scheme;
+  proxy_set_header   X-Real-IP         $remote_addr;
+}
+```
 
-In the project directory, you can run:
+在 `src` 目录下建 `setupProxy.js` 文件
+```js
+// https://github.com/chimurai/http-proxy-middleware#example
+const { createProxyMiddleware } = require('http-proxy-middleware');
+module.exports = function(app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://www.domain.com',
+      changeOrigin: true,
+    })
+  );
+};
+```
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
