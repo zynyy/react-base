@@ -58,6 +58,10 @@ export const isFunction = (value) => {
   return checkType(value, 'function');
 };
 
+export const isString = (value) => {
+  return checkType(value, 'string');
+};
+
 // eslint-disable-next-line no-useless-escape
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
 
