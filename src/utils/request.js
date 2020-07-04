@@ -1,12 +1,11 @@
 // https://github.com/axios/axios#axios-api
 import axios from 'axios';
-
 import { message } from 'antd';
-
 import md5 from 'crypto-js/md5';
-
 import { v1 } from 'uuid';
-import { isError, isFunction } from '@/utils/is';
+import qs from 'qs';
+
+import { isError, isFunction, isString } from '@/utils/is';
 
 // https://tools.ietf.org/html/rfc2616#section-10
 // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status
@@ -38,8 +37,24 @@ export const cancelRequest = (key, msg) => {
   }
 };
 
-export const generateCancelTokenKey = (url, data) => {
-  return md5(`${url}-${data}`);
+export const generateTokenKey = (config) => {
+  const { url, method, params, data } = config;
+
+  switch (method) {
+    case 'get': {
+      return md5(`${url}-${method}-${qs.stringify(params)}`).toString();
+    }
+    case 'delete':
+    case 'put':
+    case 'post': {
+      return md5(
+        `${url}-${method}-${qs.stringify(isString(data) && data ? JSON.parse(data) : data)}`,
+      ).toString();
+    }
+    default: {
+      return md5(config).toString();
+    }
+  }
 };
 
 const { CancelToken } = axios;
@@ -51,23 +66,21 @@ serviceInstance.interceptors.request.use(
   (config) => {
     // https://github.com/axios/axios#request-config
 
+    const key = generateTokenKey(config);
+    cancelRequest(key);
+
     config.headers.Authorization = 'xxxx';
-    // 可开启请求取消功能
     config.cancelToken = new CancelToken((callback) => {
       pendingRequest.push({
         cancel: callback,
-        key: 1,
+        key,
       });
     });
-
-    // eslint-disable-next-line no-console
-    console.log(config);
 
     return config;
   },
   (error) => {
     console.error(error);
-
     return Promise.reject(error);
   },
 );
@@ -80,10 +93,9 @@ serviceInstance.interceptors.response.use(
     // https://github.com/axios/axios#response-schema
     const { data, config } = response;
 
-    // eslint-disable-next-line no-console
-    console.log(config);
+    const key = generateTokenKey(config);
 
-    removePendingRequest(1);
+    removePendingRequest(key);
 
     return Promise.resolve(data);
   },
@@ -110,23 +122,27 @@ serviceInstance.interceptors.response.use(
  *
  * @param url
  * @param params
- * @returns {Promise<AxiosResponse<T>>}
- * @constructor
- */
-export const HTTPGet = (url, params) => {
-  return serviceInstance.get(url, params);
-};
-
-/**
- *
- * @param url
- * @param params
  * @param config
- * @returns {Promise<AxiosResponse<T>>}
+ * @returns {Promise<AxiosResponse<any>>}
  * @constructor
  */
-export const HTTPPost = (url, params, config) => {
-  return serviceInstance.post(url, params, config);
+export const HTTPGet = (url, params, config) => {
+  return serviceInstance.get(url, {
+    ...config,
+    params,
+  });
+};
+
+/**
+ *
+ * @param url
+ * @param data
+ * @param config
+ * @returns {Promise<AxiosResponse<any>>}
+ * @constructor
+ */
+export const HTTPPost = (url, data, config) => {
+  return serviceInstance.post(url, data, config);
 };
 
 /**
@@ -136,19 +152,23 @@ export const HTTPPost = (url, params, config) => {
  * @returns {Promise<AxiosResponse<T>>}
  * @constructor
  */
-export const HTTPDelete = (url, params) => {
-  return serviceInstance.delete(url, params);
+export const HTTPDelete = (url, data, config) => {
+  return serviceInstance.delete(url, {
+    ...config,
+    data,
+  });
 };
 
 /**
  *
  * @param url
- * @param params
- * @returns {Promise<AxiosResponse<T>>}
+ * @param data
+ * @param config
+ * @returns {Promise<AxiosResponse<any>>}
  * @constructor
  */
-export const HttpPut = (url, params) => {
-  return serviceInstance.put(url, params);
+export const HttpPut = (url, data, config) => {
+  return serviceInstance.put(url, data, config);
 };
 
 /**
@@ -230,6 +250,5 @@ export const uploadFile = (url, file) => {
   formData.append('file', file);
   return serviceInstance.post(url, formData, {
     responseType: 'blob',
-    headers: {},
   });
 };
