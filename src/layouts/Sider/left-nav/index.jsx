@@ -127,7 +127,6 @@ const LeftNavSider = () => {
     });
   }, [updateState]);
 
-  // eslint-disable-next-line no-restricted-globals
   const { pathname } = location;
   const { menus, flatMenus, rootSubmenuKeys } = state;
 

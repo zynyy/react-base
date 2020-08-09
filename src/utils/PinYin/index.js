@@ -15,7 +15,7 @@ const handlePolyphone = (array) => {
     }
     result = temp;
   }
-  return [...new Set(result)];
+  return Array.from(new Set(result));
 };
 
 // eslint-disable-next-line import/prefer-default-export

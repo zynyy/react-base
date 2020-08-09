@@ -7,7 +7,6 @@ const {
   addLessLoader,
   addWebpackAlias,
   addWebpackExternals,
-  addDecoratorsLegacy,
   addWebpackModuleRule,
 } = require('customize-cra');
 
@@ -39,7 +38,6 @@ module.exports = override(
     libraryDirectory: 'es',
     style: true,
   }),
-  addDecoratorsLegacy(),
   addWebpackExternals(), // cdn
   addLessLoader({
     lessOptions: {

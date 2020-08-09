@@ -1,5 +1,31 @@
 # 说明
 
+## npm 仓库包镜像源地址
+
+```js
+// 官方源
+npm config set registry https://registry.npmjs.org/
+// 淘宝源
+npm config set registry https://registry.npm.taobao.org/
+```
+
+## 一键更新检查包
+
+```js
+yarn upgrade-interactive --latest
+or
+npm install -g npm-check-updates
+ncu // 检测包是否可以更新
+ncu -u // 更新 package.json 版本包
+yarn
+```
+
+## git commit 提交规范
+
+```js
+npm i -g gitmoji-cli
+```
+
 ## webpack 包
 
 1. `antd` React Ui 组件库 蚂蚁金服 出品
@@ -38,7 +64,7 @@
 
 ## nginx 之 gzip 模块配置
 
- 查看是否开启了 gzip 只需看 请求头 的 `content-encoding`的值是不是 gzip
+查看是否开启了 gzip 只需看 请求头 的 `content-encoding`的值是不是 gzip
 
 ```nginx
 // 动态压缩
@@ -68,7 +94,8 @@ location / {
 
 在 `package.json` 中 添加 `"proxy": "www.domain.com"`
 在 nginx 设置
-```
+
+```js
 location /api {
   proxy_pass www.domain.com;
   proxy_set_header   X-Forwarded-Proto $scheme;
@@ -77,6 +104,7 @@ location /api {
 ```
 
 在 `src` 目录下建 `setupProxy.js` 文件
+
 ```js
 // https://github.com/chimurai/http-proxy-middleware#example
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -90,4 +118,3 @@ module.exports = function(app) {
   );
 };
 ```
-

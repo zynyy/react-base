@@ -28,6 +28,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'no-param-reassign': 0,
     'react/jsx-wrap-multilines': ['error', { declaration: false, assignment: false }],
-   // 'import/prefer-default-export': 0,
+    // 'import/prefer-default-export': 0,
+    'no-restricted-globals': ['error', 'event'],
   },
 };
