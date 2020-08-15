@@ -40,13 +40,13 @@ const Login = ({ history }) => {
     validateFields()
       .then((formValues) => {
         const { username, password } = formValues;
-        setLoading(true);
 
         const params = {
           username,
           password,
         };
 
+        setLoading(true);
         accountLogin(params)
           .then((res) => {
             const { data } = res;
@@ -60,8 +60,8 @@ const Login = ({ history }) => {
             }
           })
           .finally(() => {
-            history.push('/form-item');
             setLoading(false);
+            history.push('/main');
           });
       })
       .catch((err) => {
@@ -97,7 +97,7 @@ const Login = ({ history }) => {
   return (
     <Spin spinning={loading}>
       <Helmet>
-        <title>登陆页面</title>
+        <title>hooks-登陆页面</title>
       </Helmet>
 
       <div className="main">
@@ -160,8 +160,9 @@ const Login = ({ history }) => {
               <WeiboCircleOutlined className="icon" />
               <QqOutlined className="icon" />
               <WechatOutlined className="icon" />
-              <Link className="register" to="/register">
-                注册账户
+              <Link className="register" to="/login-class">
+                前往class
+                {/* 注册账户 */}
               </Link>
             </div>
           </Form>

@@ -1,8 +1,7 @@
 import { Layout } from 'antd';
 import React from 'react';
 import GlobalHeader from './Header/global-header';
-// import LeftNavClass from './Sider/left-nav/LeftNavClass';
-import LeftNavClass from './Sider/left-nav';
+import LeftNavClass from './Sider/left-nav/LeftNavClass';
 
 const { Content, Header } = Layout;
 

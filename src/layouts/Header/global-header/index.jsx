@@ -1,8 +1,14 @@
+import { Button, Col, Row } from 'antd';
 import React from 'react';
-
-import { Row, Col } from 'antd';
+import { useHistory } from 'react-router-dom';
 
 const GlobalHeader = () => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push('/login');
+  };
+
   return (
     <>
       <Row
@@ -13,7 +19,9 @@ const GlobalHeader = () => {
           height: '100%',
         }}
       >
-        <Col span={24}>头部</Col>
+        <Col span={24}>
+          <Button onClick={handleClick}>退出登录</Button>
+        </Col>
       </Row>
     </>
   );

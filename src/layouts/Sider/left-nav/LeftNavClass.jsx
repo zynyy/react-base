@@ -5,10 +5,9 @@ import { SettingFilled } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import updated from 'immutability-helper';
 import { pathToRegexp } from 'path-to-regexp';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import storage from 'store2';
-import { useImmer } from 'use-immer';
 
 const { SubMenu, Item } = Menu;
 
@@ -72,39 +71,41 @@ const getMenuMatches = (flatMenu, path) => {
     .pop();
 };
 
-const LeftNavSider = () => {
-  const [state, updateState] = useImmer({
-    menus: [],
-    flatMenus: [],
-    rootSubmenuKeys: [],
-  });
+class LeftNavClassSider extends React.Component {
+  // static getDerivedStateFromProps() {
 
-  const [openMenuKeysState, updateOpenMenuKeys] = useImmer({
-    selectedKeys: [],
-    openKeys: [],
-  });
+  // }
 
-  const { selectedKeys, openKeys } = openMenuKeysState;
+  constructor(props) {
+    super(props);
+    this.state = {
+      menus: [],
+      flatMenus: [],
+      rootSubmenuKeys: [],
+      selectedKeys: [],
+      openKeys: [],
+    };
+  }
 
-  useEffect(() => {
+  componentDidMount() {
     const { menus } = storage.get(LOGIN_INFO_STORAGE_KEY) || {
       menus: [
         {
           name: '菜单',
-          path: '/main',
+          path: '/main-class',
           id: '129',
         },
         {
           name: '组件菜单',
-          path: '/main/component',
-          parentPath: '/main',
+          path: '/main-class/component',
+          parentPath: '/main-class',
           pid: '129',
           id: '123456789',
         },
         {
           name: '开发菜单',
-          path: '/main/menu',
-          parentPath: '/main',
+          path: '/main-class/menu',
+          parentPath: '/main-class',
           pid: '129',
           id: '1234569',
         },
@@ -148,29 +149,38 @@ const LeftNavSider = () => {
       };
     });
 
-    updateState((draft) => {
-      draft.menus = menusConfig;
-      draft.flatMenus = newFlatMenus;
-      draft.rootSubmenuKeys = menusConfig.map((item) => item.path);
+    this.setState({
+      menus: menusConfig,
+      flatMenus: newFlatMenus,
+      rootSubmenuKeys: menusConfig.map((item) => item.path),
     });
-  }, [updateState]);
+  }
 
-  const { pathname } = location;
-  const { menus, flatMenus, rootSubmenuKeys } = state;
+  componentDidUpdate() {
+    const { pathname } = location;
 
-  useEffect(() => {
+    const { flatMenus, selectedKeys } = this.state;
     const { path, parentPath } = getMenuMatches(flatMenus, pathname) || {};
 
-    const animationFrameId = requestAnimationFrame(() => {
-      updateOpenMenuKeys((draft) => {
-        draft.openKeys = parentPath ? [parentPath] : parentPath;
-        draft.selectedKeys = path ? [path] : [];
+    if (selectedKeys[0] !== path) {
+      this.animationFrameId = requestAnimationFrame(() => {
+        this.setState({
+          openKeys: parentPath ? [parentPath] : [],
+          selectedKeys: path ? [path] : [],
+        });
       });
-    });
-    return () => window.cancelAnimationFrame && window.cancelAnimationFrame(animationFrameId);
-  }, [pathname, flatMenus, updateOpenMenuKeys]);
+    }
 
-  const renderItem = (item) => {
+    return false;
+  }
+
+  componentWillUnmount() {
+    if (this.animationFrameId && window.cancelAnimationFrame) {
+      window.cancelAnimationFrame(this.animationFrameId);
+    }
+  }
+
+  renderItem = (item) => {
     const { path, name } = item;
 
     return (
@@ -190,7 +200,7 @@ const LeftNavSider = () => {
     );
   };
 
-  const renderMenu = (menu) => {
+  renderMenu = (menu) => {
     if (!menu.length) return null;
 
     return menu.map((item) => {
@@ -205,41 +215,47 @@ const LeftNavSider = () => {
           }
           key={path}
         >
-          {renderMenu(children)}
+          {this.renderMenu(children)}
         </SubMenu>
       ) : (
-        renderItem(item)
+        this.renderItem(item)
       );
     });
   };
 
-  const handleOpenChange = (nowOpenKeys) => {
+  handleOpenChange = (nowOpenKeys) => {
+    const { openKeys, rootSubmenuKeys } = this.state;
+
     const latestOpenKey = nowOpenKeys.find((key) => openKeys.indexOf(key) === -1);
 
     if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      updateOpenMenuKeys((draft) => {
-        draft.openKeys = nowOpenKeys;
+      this.setState({
+        openKeys: nowOpenKeys,
       });
     } else {
-      updateOpenMenuKeys((draft) => {
-        draft.openKeys = latestOpenKey ? [latestOpenKey] : [];
+      this.setState({
+        openKeys: latestOpenKey ? [latestOpenKey] : [],
       });
     }
   };
 
-  return (
-    <Sider width={160} collapsible trigger={null} collapsed={false}>
-      <Menu
-        mode="inline"
-        selectedKeys={selectedKeys}
-        openKeys={openKeys}
-        onOpenChange={handleOpenChange}
-        inlineIndent={15}
-      >
-        {renderMenu(menus)}
-      </Menu>
-    </Sider>
-  );
-};
+  render() {
+    const { selectedKeys, openKeys, menus } = this.state;
 
-export default LeftNavSider;
+    return (
+      <Sider width={160} collapsible trigger={null} collapsed={false}>
+        <Menu
+          mode="inline"
+          selectedKeys={selectedKeys}
+          openKeys={openKeys}
+          onOpenChange={this.handleOpenChange}
+          inlineIndent={15}
+        >
+          {this.renderMenu(menus)}
+        </Menu>
+      </Sider>
+    );
+  }
+}
+
+export default LeftNavClassSider;
