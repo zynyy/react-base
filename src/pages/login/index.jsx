@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom';
 import store from 'store2';
 import './style/index.less';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [form] = Form.useForm();
   const [autoLogin, setAutoLogin] = useState(() => {
     return store.get(AUTO_LOGIN_KEY) ?? false;
@@ -60,6 +60,7 @@ const Login = () => {
             }
           })
           .finally(() => {
+            history.push('/form-item');
             setLoading(false);
           });
       })
