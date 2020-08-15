@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import './style/index.less';
-import PropTypes from 'prop-types';
 
 export const CompactBeforeAfterPropTypes = {
   addBefore: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),

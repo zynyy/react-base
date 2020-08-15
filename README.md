@@ -23,6 +23,7 @@ yarn
 ## git commit 提交规范
 
 ```js
+// https://gitmoji.carloscuesta.me/
 npm i -g gitmoji-cli
 ```
 

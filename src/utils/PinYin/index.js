@@ -18,8 +18,7 @@ const handlePolyphone = (array) => {
   return Array.from(new Set(result));
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export const getChineseFirstLetter = (str, isPolyphone) => {
+const getChineseFirstLetter = (str, isPolyphone) => {
   if (!str || /^ +$/g.test(str)) return '';
 
   const result = [];
@@ -43,3 +42,5 @@ export const getChineseFirstLetter = (str, isPolyphone) => {
   }
   return handlePolyphone(result);
 };
+
+export default getChineseFirstLetter;

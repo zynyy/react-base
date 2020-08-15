@@ -11,6 +11,11 @@ const BOM_STRING_TAG = {
   storage: '[object Storage]',
 };
 
+// https://dom.spec.whatwg.org/
+const DOM_STRING_TAG = {
+  mutationObserver: '[object MutationObserver]',
+};
+
 // https://www.w3.org/TR/FileAPI/
 const FILE_STRING_TAG = {
   fileReader: '[object FileReader]',
@@ -21,6 +26,10 @@ const FILE_STRING_TAG = {
 
 const checkBOMType = (value, type) => {
   return getTag(value) === BOM_STRING_TAG[type];
+};
+
+const checkDOMType = (value, type) => {
+  return getTag(value) === DOM_STRING_TAG[type];
 };
 
 const checkFileType = (value, type) => {
@@ -94,6 +103,17 @@ export const isHistory = (value) => {
  */
 export const isStorage = (value) => {
   return checkBOMType(value, 'storage');
+};
+
+/**
+ *
+ * @param {*} value
+ * const mutationObserver = new MutationObserver(() => {})
+ * isMutationObserver(mutationObserver) ||
+ *  => true
+ */
+export const isMutationObserver = (value) => {
+  return checkDOMType(value, 'mutationObserver');
 };
 
 /**

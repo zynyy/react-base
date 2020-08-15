@@ -3,9 +3,7 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "emitDecoratorMetadata": true
-    //  "experimentalDecorators": true
+    }
   },
   "include": ["src"]
 }
