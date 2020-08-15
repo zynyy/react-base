@@ -1,27 +1,37 @@
-import React, { useState } from 'react';
-import { Button, Col, Form, Row, Spin, Checkbox } from 'antd';
-import {
-  LockTwoTone,
-  UserOutlined,
-  AlipayCircleOutlined,
-  QqOutlined,
-  WeiboCircleOutlined,
-  WechatOutlined,
-} from '@ant-design/icons';
-import { Helmet } from 'react-helmet-async';
-
-import { Link } from 'react-router-dom';
-
 import InputItem from '@/components/form-item/input';
 import PasswordItem from '@/components/form-item/input/password';
-import './style/index.less';
-
 import { accountLogin } from '@/services/login';
+import {
+  AUTO_LOGIN_KEY,
+  LOGIN_INFO_STORAGE_KEY,
+  REMEMBER_PASSWORD_KEY,
+  REMEMBER_USER_KEY,
+} from '@/utils/define';
+import { decryptAES, encryptAES } from '@/utils/encryption';
+import {
+  AlipayCircleOutlined,
+  LockTwoTone,
+  QqOutlined,
+  UserOutlined,
+  WechatOutlined,
+  WeiboCircleOutlined,
+} from '@ant-design/icons';
+import { Button, Checkbox, Col, Form, Row, Spin } from 'antd';
+import qs from 'qs';
+import React, { useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import store from 'store2';
+import './style/index.less';
 
 const Login = () => {
   const [form] = Form.useForm();
-  const [autoLogin, setAutoLogin] = useState(false);
-  const [rememberPassword, setRememberPassword] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(() => {
+    return store.get(AUTO_LOGIN_KEY) ?? false;
+  });
+  const [rememberPassword, setRememberPassword] = useState(() => {
+    return store.get(REMEMBER_PASSWORD_KEY) ?? false;
+  });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
@@ -31,11 +41,24 @@ const Login = () => {
       .then((formValues) => {
         const { username, password } = formValues;
         setLoading(true);
-        accountLogin({
+
+        const params = {
           username,
           password,
-        })
-          .then()
+        };
+
+        accountLogin(params)
+          .then((res) => {
+            const { data } = res;
+            store.set(LOGIN_INFO_STORAGE_KEY, data);
+            store.set(AUTO_LOGIN_KEY, autoLogin);
+            store.set(REMEMBER_PASSWORD_KEY, rememberPassword);
+            if (rememberPassword) {
+              store.set(REMEMBER_USER_KEY, encryptAES(qs.stringify(params)));
+            } else {
+              store.remove(REMEMBER_USER_KEY);
+            }
+          })
           .finally(() => {
             setLoading(false);
           });
@@ -55,8 +78,20 @@ const Login = () => {
 
   const handleRememberPasswordChange = (e) => {
     const { checked } = e.target;
+
+    if (!checked) {
+      setAutoLogin(false);
+    }
     setRememberPassword(checked);
   };
+
+  const initialValues = useMemo(() => {
+    const paw = store.get(REMEMBER_USER_KEY);
+    if (paw) {
+      return qs.parse(decryptAES(paw));
+    }
+    return {};
+  }, []);
 
   return (
     <Spin spinning={loading}>
@@ -66,13 +101,7 @@ const Login = () => {
 
       <div className="main">
         <div className="login">
-          <Form
-            form={form}
-            initialValues={{
-              username: 'hyl',
-              password: '123456',
-            }}
-          >
+          <Form form={form} initialValues={initialValues}>
             <Row type="flex">
               <Col span={24}>
                 <InputItem
