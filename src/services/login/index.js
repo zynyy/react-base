@@ -7,7 +7,7 @@ import { HTTPPost } from '@/utils/request';
  * @constructor
  */
 export const accountLogin = (params) => {
-  return HTTPPost('/ucenter/api/login/login', params);
+  return HTTPPost('/api/login/account', params);
 };
 
 export const testAccountLogin = (params) => {

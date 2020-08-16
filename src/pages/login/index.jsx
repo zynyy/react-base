@@ -16,9 +16,9 @@ import {
   WechatOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import { Button, Checkbox, Col, Form, Row, Spin } from 'antd';
+import { Alert, Button, Checkbox, Col, Form, Row, Spin } from 'antd';
 import qs from 'qs';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import store from 'store2';
@@ -33,24 +33,29 @@ const Login = ({ history }) => {
     return store.get(REMEMBER_PASSWORD_KEY) ?? false;
   });
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const handleSubmit = () => {
     const { validateFields } = form;
 
     validateFields()
       .then((formValues) => {
-        const { username, password } = formValues;
+        const { userName, password } = formValues;
 
         const params = {
-          username,
+          userName,
           password,
+          type: 'account',
         };
 
         setLoading(true);
         accountLogin(params)
           .then((res) => {
             const { data } = res;
-            store.set(LOGIN_INFO_STORAGE_KEY, data);
+
+            console.log(data);
+            setLoading(false);
+            //  store.set(LOGIN_INFO_STORAGE_KEY, data);
             store.set(AUTO_LOGIN_KEY, autoLogin);
             store.set(REMEMBER_PASSWORD_KEY, rememberPassword);
             if (rememberPassword) {
@@ -58,15 +63,20 @@ const Login = ({ history }) => {
             } else {
               store.remove(REMEMBER_USER_KEY);
             }
-          })
-          .finally(() => {
-            setLoading(false);
             history.push('/main');
+          })
+          .catch(() => {
+            setVisible(true);
+            setLoading(false);
           });
       })
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  const handleClose = () => {
+    setVisible(false);
   };
 
   const handleAutoLoginChange = (e) => {
@@ -94,6 +104,10 @@ const Login = ({ history }) => {
     return {};
   }, []);
 
+  useEffect(() => {
+    store.remove(LOGIN_INFO_STORAGE_KEY);
+  }, []);
+
   return (
     <Spin spinning={loading}>
       <Helmet>
@@ -102,11 +116,21 @@ const Login = ({ history }) => {
 
       <div className="main">
         <div className="login">
+          {visible ? (
+            <Alert
+              message="账户或者密码错误 admin/ant.design"
+              type="error"
+              closable
+              afterClose={handleClose}
+              showIcon
+            />
+          ) : null}
+
           <Form form={form} initialValues={initialValues}>
             <Row type="flex">
               <Col span={24}>
                 <InputItem
-                  field="username"
+                  field="userName"
                   prefix={
                     <UserOutlined
                       style={{

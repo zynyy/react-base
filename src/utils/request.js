@@ -1,11 +1,10 @@
 // https://github.com/axios/axios#axios-api
-import axios from 'axios';
-import { message } from 'antd';
-import md5 from 'crypto-js/md5';
-import { v1 } from 'uuid';
-import qs from 'qs';
-
 import { isError, isFunction, isString } from '@/utils/is';
+import { message } from 'antd';
+import axios from 'axios';
+import md5 from 'crypto-js/md5';
+import qs from 'qs';
+import { v1 } from 'uuid';
 
 // https://tools.ietf.org/html/rfc2616#section-10
 // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status
@@ -15,7 +14,7 @@ const HTTPStatusCodeMessage = {
 
 const serviceInstance = axios.create({
   baseURL: `${window.location.protocol}//${window.location.host}/`,
-  timeout: 3000, // 设置超时时间
+  // timeout: 3000, // 设置超时时间
 });
 
 const pendingRequest = []; // 等待请求队列
@@ -96,6 +95,13 @@ serviceInstance.interceptors.response.use(
     const key = generateTokenKey(config);
 
     removePendingRequest(key);
+
+    const { status } = data;
+
+    if (status !== 'ok') {
+      //  message.error(msg);
+      return Promise.reject(data);
+    }
 
     return Promise.resolve(data);
   },

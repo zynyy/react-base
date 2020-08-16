@@ -47,6 +47,7 @@ class LoginClass extends React.Component {
         const params = {
           username,
           password,
+          passwd: password,
         };
 
         this.setState({
@@ -57,6 +58,9 @@ class LoginClass extends React.Component {
           .then((res) => {
             const { data } = res;
             const { autoLogin, rememberPassword } = this.state;
+            this.setState({
+              loading: false,
+            });
 
             store.set(LOGIN_INFO_STORAGE_KEY, data);
             store.set(AUTO_LOGIN_KEY, autoLogin);
@@ -66,13 +70,13 @@ class LoginClass extends React.Component {
             } else {
               store.remove(REMEMBER_USER_KEY);
             }
+            const { history } = this.props;
+            history.push('/main-class');
           })
-          .finally(() => {
+          .catch(() => {
             this.setState({
               loading: false,
             });
-            const { history } = this.props;
-            history.push('/main-class');
           });
       })
       .catch((err) => {

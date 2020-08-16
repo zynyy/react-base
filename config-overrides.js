@@ -8,6 +8,7 @@ const {
   addWebpackAlias,
   addWebpackExternals,
   addWebpackModuleRule,
+  addBundleVisualizer,
 } = require('customize-cra');
 
 const theme = require('./antd.theme');
@@ -45,6 +46,7 @@ module.exports = override(
       modifyVars: theme(),
     },
   }),
+  addBundleVisualizer(),
   addWebpackAlias({
     '@': path.resolve(__dirname, './src/'),
   }),
