@@ -93,6 +93,5 @@
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
     "webpack-bundle-analyzer": "^3.8.0"
-  },
-
+  }
 }

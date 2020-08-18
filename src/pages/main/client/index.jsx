@@ -144,6 +144,20 @@ const Client = ({ match }) => {
     }
   };
 
+  const handleTableChange = (pagination) => {
+    const { current: nextCurrent, pageSize: nextPageSize } = pagination;
+
+    if (nextCurrent !== current) {
+      updateTablePagination({
+        current: nextCurrent,
+      });
+    } else if (nextPageSize !== pageSize) {
+      updateTablePagination({
+        pageSize: nextPageSize,
+      });
+    }
+  };
+
   const renderTableTitle = () => {
     return (
       <Link to={`${path}/new`}>
@@ -167,6 +181,7 @@ const Client = ({ match }) => {
         columns={columns}
         pagination={tablePagination}
         rowKey="rowKey"
+        onChange={handleTableChange}
       />
     </Spin>
   );
