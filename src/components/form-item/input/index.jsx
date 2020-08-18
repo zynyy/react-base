@@ -1,7 +1,6 @@
-import React from 'react';
+import FormItem from '@/components/form-item';
 import { Input } from 'antd';
-
-import FormItem, { FormItemPropTypes } from '@/components/form-item';
+import React from 'react';
 
 const InputItem = ({ field, label, rules, ...restProps }) => {
   return (
@@ -10,7 +9,5 @@ const InputItem = ({ field, label, rules, ...restProps }) => {
     </FormItem>
   );
 };
-
-InputItem.propTypes = FormItemPropTypes;
 
 export default InputItem;

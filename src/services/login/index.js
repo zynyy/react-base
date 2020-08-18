@@ -2,14 +2,17 @@ import { HTTPPost } from '@/utils/request';
 
 /**
  *
- * @param params
- * @returns {Promise<AxiosResponse<T>>}
- * @constructor
+ * @param {
+ *  enterpriseCode: qiao,
+    username: 18020740000,
+    password: h123456,
+    vcode: 4
+ * } params
  */
 export const accountLogin = (params) => {
-  return HTTPPost('/api/login/account', params);
+  return HTTPPost('/zgj/user/login', params);
 };
 
-export const testAccountLogin = (params) => {
-  return HTTPPost('', params);
+export const captchaFetch = (params) => {
+  return HTTPPost('zgj/user/getVerifyCode', params);
 };

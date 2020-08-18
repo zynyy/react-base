@@ -1,16 +1,13 @@
+import FormItem from '@/components/form-item';
+import InputNumberCompact from '@/components/InputNumber/compact';
 import React from 'react';
-import FormItem, { FormItemPropTypes } from '@/components/form-item';
 
-import CompactInputNumber from '@/components/InputNumber/compact';
-
-const CompactInputNumberItem = ({ label, field, rules, ...restProps }) => {
+const InputNumberCompactItem = ({ label, field, rules, ...restProps }) => {
   return (
     <FormItem label={label} field={field} rules={rules}>
-      <CompactInputNumber {...restProps} />
+      <InputNumberCompact {...restProps} />
     </FormItem>
   );
 };
 
-CompactInputNumberItem.propTypes = FormItemPropTypes;
-
-export default CompactInputNumberItem;
+export default InputNumberCompactItem;

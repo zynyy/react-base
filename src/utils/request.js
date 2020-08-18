@@ -1,10 +1,12 @@
 // https://github.com/axios/axios#axios-api
-import { isError, isFunction, isString } from '@/utils/is';
+import { isError, isFunction } from '@/utils/is';
 import { message } from 'antd';
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
 import qs from 'qs';
+import store from 'store2';
 import { v1 } from 'uuid';
+import { LOGIN_INFO_STORAGE_KEY } from './define';
 
 // https://tools.ietf.org/html/rfc2616#section-10
 // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status
@@ -46,9 +48,7 @@ export const generateTokenKey = (config) => {
     case 'delete':
     case 'put':
     case 'post': {
-      return md5(
-        `${url}-${method}-${qs.stringify(isString(data) && data ? JSON.parse(data) : data)}`,
-      ).toString();
+      return md5(`${url}-${method}-${data}`).toString();
     }
     default: {
       return md5(config).toString();
@@ -65,10 +65,17 @@ serviceInstance.interceptors.request.use(
   (config) => {
     // https://github.com/axios/axios#request-config
 
+    const { method, data } = config;
+
+    if (method === 'post') {
+      config.headers['content-type'] = 'application/x-www-form-urlencoded';
+      config.data = qs.stringify(data);
+    }
+
     const key = generateTokenKey(config);
     cancelRequest(key);
 
-    config.headers.Authorization = 'xxxx';
+    config.headers.token = store.get(LOGIN_INFO_STORAGE_KEY);
     config.cancelToken = new CancelToken((callback) => {
       pendingRequest.push({
         cancel: callback,
@@ -95,10 +102,9 @@ serviceInstance.interceptors.response.use(
     const key = generateTokenKey(config);
 
     removePendingRequest(key);
+    const { result } = data;
 
-    const { status } = data;
-
-    if (status !== 'ok') {
+    if (result !== 1) {
       //  message.error(msg);
       return Promise.reject(data);
     }

@@ -43,4 +43,14 @@ const getChineseFirstLetter = (str, isPolyphone) => {
   return handlePolyphone(result);
 };
 
+export const handleCascaderFilter = (inputValue, path) => {
+  const [first] = path;
+  const nameFirstLetter = getChineseFirstLetter(first.label, true);
+
+  const index =
+    nameFirstLetter &&
+    nameFirstLetter.findIndex((val) => val.toLowerCase().startsWith(inputValue.toLowerCase()));
+  return index !== -1;
+};
+
 export default getChineseFirstLetter;

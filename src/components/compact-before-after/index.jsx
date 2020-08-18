@@ -1,7 +1,6 @@
-import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import './style/index.less';
 
 export const CompactBeforeAfterPropTypes = {
@@ -10,7 +9,7 @@ export const CompactBeforeAfterPropTypes = {
   className: PropTypes.string,
 };
 
-const CompactBeforeAfter = ({ addBefore, addAfter, children, className }) => {
+const CompactBeforeAfter = React.forwardRef(({ addBefore, addAfter, children, className }, ref) => {
   const addBeforeNode = addBefore ? (
     <span className="compact-group-add-before">{addBefore}</span>
   ) : null;
@@ -22,12 +21,12 @@ const CompactBeforeAfter = ({ addBefore, addAfter, children, className }) => {
     <span className={classNames('compact-group-wrapper', className)}>
       <span className="compact-wrapper compact-group">
         {addBeforeNode}
-        {React.cloneElement(children, { style: null })}
+        {React.cloneElement(children, { style: null, ref })}
         {addAfterNode}
       </span>
     </span>
   );
-};
+});
 
 CompactBeforeAfter.propTypes = {
   children: PropTypes.element.isRequired,

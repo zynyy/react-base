@@ -20,8 +20,20 @@ const BasicLayout = ({ children }) => {
       <Layout>
         <LeftNavClass collapsed={false} />
 
-        <Layout style={{ paddingTop: 10 }}>
-          <Content>{children}</Content>
+        <Layout>
+          <Content
+            style={{
+              padding: 10,
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: '#fff',
+              }}
+            >
+              {children}
+            </div>
+          </Content>
         </Layout>
       </Layout>
     </Layout>

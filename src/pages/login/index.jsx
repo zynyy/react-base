@@ -1,3 +1,4 @@
+import CaptchaImg from '@/components/captcha';
 import InputItem from '@/components/form-item/input';
 import PasswordItem from '@/components/form-item/input/password';
 import { accountLogin } from '@/services/login';
@@ -11,6 +12,7 @@ import { decryptAES, encryptAES } from '@/utils/encryption';
 import {
   AlipayCircleOutlined,
   LockTwoTone,
+  MailOutlined,
   QqOutlined,
   UserOutlined,
   WechatOutlined,
@@ -40,12 +42,13 @@ const Login = ({ history }) => {
 
     validateFields()
       .then((formValues) => {
-        const { userName, password } = formValues;
+        const { username, password, captcha } = formValues;
 
         const params = {
-          userName,
+          enterpriseCode: 'qiao',
+          username,
           password,
-          type: 'account',
+          vcode: captcha,
         };
 
         setLoading(true);
@@ -53,13 +56,14 @@ const Login = ({ history }) => {
           .then((res) => {
             const { data } = res;
 
-            console.log(data);
+            const { token } = data;
+
             setLoading(false);
-            //  store.set(LOGIN_INFO_STORAGE_KEY, data);
+            store.set(LOGIN_INFO_STORAGE_KEY, token);
             store.set(AUTO_LOGIN_KEY, autoLogin);
             store.set(REMEMBER_PASSWORD_KEY, rememberPassword);
             if (rememberPassword) {
-              store.set(REMEMBER_USER_KEY, encryptAES(qs.stringify(params)));
+              store.set(REMEMBER_USER_KEY, encryptAES(qs.stringify({ username, password })));
             } else {
               store.remove(REMEMBER_USER_KEY);
             }
@@ -118,7 +122,7 @@ const Login = ({ history }) => {
         <div className="login">
           {visible ? (
             <Alert
-              message="账户或者密码错误 admin/ant.design"
+              message="账户或者密码错误 18020740000/h123456"
               type="error"
               closable
               afterClose={handleClose}
@@ -130,7 +134,7 @@ const Login = ({ history }) => {
             <Row type="flex">
               <Col span={24}>
                 <InputItem
-                  field="userName"
+                  field="username"
                   prefix={
                     <UserOutlined
                       style={{
@@ -160,6 +164,34 @@ const Login = ({ history }) => {
                     },
                   ]}
                 />
+              </Col>
+              <Col span={24}>
+                <Row>
+                  <Col span={16}>
+                    <InputItem
+                      field="captcha"
+                      prefix={
+                        <MailOutlined
+                          style={{
+                            color: '#1890ff',
+                          }}
+                          className="prefixIcon"
+                        />
+                      }
+                      placeholder="请输入验证码"
+                      rules={[
+                        {
+                          required: true,
+                          message: '请输入验证码!',
+                        },
+                      ]}
+                    />
+                  </Col>
+
+                  <Col span={8} style={{ textAlign: 'right' }}>
+                    <CaptchaImg />
+                  </Col>
+                </Row>
               </Col>
 
               <Col className="btn">

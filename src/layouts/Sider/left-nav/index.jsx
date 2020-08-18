@@ -1,4 +1,3 @@
-import { LOGIN_INFO_STORAGE_KEY } from '@/utils/define';
 import { isUrl } from '@/utils/is';
 import { compareSimilarity } from '@/utils/utils';
 import { SettingFilled } from '@ant-design/icons';
@@ -7,7 +6,6 @@ import updated from 'immutability-helper';
 import { pathToRegexp } from 'path-to-regexp';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import storage from 'store2';
 import { useImmer } from 'use-immer';
 
 const { SubMenu, Item } = Menu;
@@ -87,7 +85,8 @@ const LeftNavSider = () => {
   const { selectedKeys, openKeys } = openMenuKeysState;
 
   useEffect(() => {
-    const { menus } = storage.get(LOGIN_INFO_STORAGE_KEY) || {
+    // storage.get(LOGIN_INFO_STORAGE_KEY) ||
+    const { menus } = {
       menus: [
         {
           name: '菜单',
@@ -107,6 +106,13 @@ const LeftNavSider = () => {
           parentPath: '/main',
           pid: '129',
           id: '1234569',
+        },
+        {
+          name: '客户列表',
+          path: '/main/client',
+          parentPath: '/main',
+          pid: '129',
+          id: '123569',
         },
       ],
     };

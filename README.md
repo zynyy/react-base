@@ -42,7 +42,7 @@ npm i -g gitmoji-cli
   github 地址: <https://github.com/moment/moment>, npm 地址 <https://www.npmjs.com/package/moment>
 
 1. `react-router-dom` 路由切换
-  github 地址: <https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom>, npm 地址 <https://www.npmjs.com/package/react-router-dom>
+  github 地址: <https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom>, npm 地址 <https://www.npmjs.com/package/react-router-dom> 官网[https://reactrouter.com/web/guides/quick-start]
 
 1. `crypto-js` 加解密
 
@@ -86,6 +86,16 @@ http {
   gzip_static  on;
 }
 
+// https 可通过 letsencrypt.org获取
+
+listen 443 ssl;
+ssl_certificate cert/domain name.pem;   #将domain name.pem替换成您证书的文件名。
+ssl_certificate_key cert/domain name.key;   #将domain name.key替换成您证书的密钥文件名。
+ssl_session_timeout 5m;
+ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。
+ssl_prefer_server_ciphers on;
+
 location / {
   try_files $uri $uri/ /index.html;
 }
@@ -119,3 +129,4 @@ module.exports = function(app) {
   );
 };
 ```
+
