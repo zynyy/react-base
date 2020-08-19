@@ -84,3 +84,14 @@ export const compareSimilarity = (inputString, targetString, insertion, substitu
 
   return weight;
 };
+
+export const goBackList = (history) => {
+  const { pathname } = window.location;
+
+  const urlArray = pathname.split('/');
+
+  const index = urlArray.findIndex((val) => val === 'new');
+
+  const listUrl = urlArray.slice(0, index).join('/');
+  history.push(listUrl);
+};

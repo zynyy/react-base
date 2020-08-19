@@ -108,6 +108,13 @@ class LeftNavClassSider extends React.Component {
           pid: '129',
           id: '1234569',
         },
+        {
+          name: '客户列表',
+          path: '/main-class/client',
+          parentPath: '/main-class',
+          pid: '129',
+          id: '123569',
+        },
       ],
     };
 

@@ -1,3 +1,4 @@
+import CaptchaImg from '@/components/captcha';
 import InputItem from '@/components/form-item/input';
 import PasswordItem from '@/components/form-item/input/password';
 import { accountLogin } from '@/services/login';
@@ -11,6 +12,7 @@ import { decryptAES, encryptAES } from '@/utils/encryption';
 import {
   AlipayCircleOutlined,
   LockTwoTone,
+  MailOutlined,
   QqOutlined,
   UserOutlined,
   WechatOutlined,
@@ -42,12 +44,13 @@ class LoginClass extends React.Component {
 
     validateFields()
       .then((formValues) => {
-        const { username, password } = formValues;
+        const { username, password, captcha } = formValues;
 
         const params = {
+          enterpriseCode: 'qiao',
           username,
           password,
-          passwd: password,
+          vcode: captcha,
         };
 
         this.setState({
@@ -57,12 +60,13 @@ class LoginClass extends React.Component {
         accountLogin(params)
           .then((res) => {
             const { data } = res;
+            const { token } = data;
             const { autoLogin, rememberPassword } = this.state;
             this.setState({
               loading: false,
             });
 
-            store.set(LOGIN_INFO_STORAGE_KEY, data);
+            store.set(LOGIN_INFO_STORAGE_KEY, token);
             store.set(AUTO_LOGIN_KEY, autoLogin);
             store.set(REMEMBER_PASSWORD_KEY, rememberPassword);
             if (rememberPassword) {
@@ -158,6 +162,35 @@ class LoginClass extends React.Component {
                       },
                     ]}
                   />
+                </Col>
+
+                <Col span={24}>
+                  <Row>
+                    <Col span={16}>
+                      <InputItem
+                        field="captcha"
+                        prefix={
+                          <MailOutlined
+                            style={{
+                              color: '#1890ff',
+                            }}
+                            className="prefixIcon"
+                          />
+                        }
+                        placeholder="请输入验证码"
+                        rules={[
+                          {
+                            required: true,
+                            message: '请输入验证码!',
+                          },
+                        ]}
+                      />
+                    </Col>
+
+                    <Col span={8} style={{ textAlign: 'right' }}>
+                      <CaptchaImg />
+                    </Col>
+                  </Row>
                 </Col>
 
                 <Col className="btn">

@@ -102,10 +102,10 @@ serviceInstance.interceptors.response.use(
     const key = generateTokenKey(config);
 
     removePendingRequest(key);
-    const { result } = data;
+    const { result, message: msg } = data;
 
     if (result !== 1) {
-      //  message.error(msg);
+      message.error(msg);
       return Promise.reject(data);
     }
 

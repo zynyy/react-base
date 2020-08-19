@@ -1,26 +1,33 @@
+import PageLoading from '@/components/loading/page';
 import BasicLayout from '@/layouts/BasicLayoutClass';
 import NotPage from '@/pages/404';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Component from './component';
-import Menu from './menu';
+
+const Component = lazy(() => import('./component'));
+const Menu = lazy(() => import('./menu'));
+const Client = lazy(() => import('./client-class'));
+const ClientEditorAndAdd = lazy(() => import('./client-class/ClientEditorAndAdd'));
 
 const Main = ({ match }) => {
   const { path } = match;
 
-  console.log(path);
-
   return (
     <BasicLayout>
-      <Switch>
-        <Route path={`${path}/component`} component={Component} />
-        <Route path={`${path}/menu`} component={Menu} />
+      <Suspense fallback={<PageLoading />}>
+        <Switch>
+          <Route path={`${path}/component`} component={Component} />
+          <Route path={`${path}/menu`} component={Menu} />
+          <Route path={`${path}/client/new/:id?/:highSeasId?`} component={ClientEditorAndAdd} />
+          <Route path={`${path}/client`} component={Client} />
 
-        <Route exact path={path}>
-          <Redirect to={`${path}/component`} />
-        </Route>
-        <Route component={NotPage} />
-      </Switch>
+          <Route exact path={path}>
+            <Redirect to={`${path}/component`} />
+          </Route>
+
+          <Route component={NotPage} />
+        </Switch>
+      </Suspense>
     </BasicLayout>
   );
 };
