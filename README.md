@@ -48,6 +48,7 @@ npm i -g gitmoji-cli
 
 ## 开发工具依赖包
 
+1. `ts-migrate`: 一键 js 转 ts 代码
 1. `eslint`: js 代码规范 <https://eslint.org/docs/rules/>
 1. `stylelint`: CSS 代码规范 <https://stylelint.io/user-guide/rules/>
 1. `prettier`: 代码格式化 <https://prettier.io/docs/en/index.html>
