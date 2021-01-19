@@ -1,8 +1,7 @@
 import { DEFAULT_TABLE_PADINATION } from '@/utils/define';
 import update from 'immutability-helper';
-import { useCallback } from 'react';
+import { useCallback,useState } from 'react';
 
-const { useState } = require('react');
 
 const useTablePagination = () => {
   const [tablePagination, setTablePagination] = useState(DEFAULT_TABLE_PADINATION);
