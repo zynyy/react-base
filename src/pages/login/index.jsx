@@ -28,12 +28,10 @@ import './style/index.less';
 
 const Login = ({ history }) => {
   const [form] = Form.useForm();
-  const [autoLogin, setAutoLogin] = useState(() => {
-    return store.get(AUTO_LOGIN_KEY) ?? false;
-  });
-  const [rememberPassword, setRememberPassword] = useState(() => {
-    return store.get(REMEMBER_PASSWORD_KEY) ?? false;
-  });
+  const [autoLogin, setAutoLogin] = useState(() => store.get(AUTO_LOGIN_KEY) ?? false);
+  const [rememberPassword, setRememberPassword] = useState(
+    () => store.get(REMEMBER_PASSWORD_KEY) ?? false,
+  );
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 

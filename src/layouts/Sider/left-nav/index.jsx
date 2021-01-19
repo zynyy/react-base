@@ -34,8 +34,8 @@ const recursionChildren = (item, childrenData) => {
   });
 };
 
-const getMenuMatches = (flatMenu, path) => {
-  return flatMenu
+const getMenuMatches = (flatMenu, path) =>
+  flatMenu
     .filter((item) => {
       if (item.path === '/' && path === '/') {
         return true;
@@ -52,12 +52,10 @@ const getMenuMatches = (flatMenu, path) => {
       }
       return false;
     })
-    .map((item) => {
-      return {
-        ...item,
-        weight: compareSimilarity(item.path, path),
-      };
-    })
+    .map((item) => ({
+      ...item,
+      weight: compareSimilarity(item.path, path),
+    }))
     .sort((a, b) => {
       if (a.weight > b.weight) {
         return -1;
@@ -68,7 +66,6 @@ const getMenuMatches = (flatMenu, path) => {
       return 0;
     })
     .pop();
-};
 
 const LeftNavSider = () => {
   const [state, updateState] = useImmer({

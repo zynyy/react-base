@@ -1,8 +1,6 @@
 import qs from 'qs';
 
-export const getPageQuery = (search) => {
-  return qs.parse(search, { ignoreQueryPrefix: true });
-};
+export const getPageQuery = (search) => qs.parse(search, { ignoreQueryPrefix: true });
 
 /**
  * 笛卡尔乘积
@@ -36,9 +34,7 @@ export const CartesianProduct = (...chunks) => {
   return result;
 };
 
-export const getTag = (value) => {
-  return Object.prototype.toString.call(value);
-};
+export const getTag = (value) => Object.prototype.toString.call(value);
 
 export const compareSimilarity = (inputString, targetString, insertion, substituation, removal) => {
   if (inputString === targetString) return 0;

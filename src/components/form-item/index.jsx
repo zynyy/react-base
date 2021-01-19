@@ -8,13 +8,11 @@ export const FormItemPropTypes = {
   rules: PropTypes.arrayOf(PropTypes.object),
 };
 
-const FormItem = ({ field, label, rules, children, ...restProps }) => {
-  return (
-    <Form.Item name={field} label={label} rules={rules} {...restProps}>
-      {children}
-    </Form.Item>
-  );
-};
+const FormItem = ({ field, label, rules, children, ...restProps }) => (
+  <Form.Item name={field} label={label} rules={rules} {...restProps}>
+    {children}
+  </Form.Item>
+);
 
 FormItem.propTypes = {
   children: PropTypes.element.isRequired,

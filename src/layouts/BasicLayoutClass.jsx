@@ -5,26 +5,24 @@ import LeftNavClass from './Sider/left-nav/LeftNavClass';
 
 const { Content, Header } = Layout;
 
-const BasicLayout = ({ children }) => {
-  return (
-    <Layout
-      style={{
-        height: '100%',
-      }}
-    >
-      <Header>
-        <GlobalHeader />
-      </Header>
+const BasicLayout = ({ children }) => (
+  <Layout
+    style={{
+      height: '100%',
+    }}
+  >
+    <Header>
+      <GlobalHeader />
+    </Header>
 
-      <Layout>
-        <LeftNavClass collapsed={false} />
+    <Layout>
+      <LeftNavClass collapsed={false} />
 
-        <Layout style={{ paddingTop: 10 }}>
-          <Content>{children}</Content>
-        </Layout>
+      <Layout style={{ paddingTop: 10 }}>
+        <Content>{children}</Content>
       </Layout>
     </Layout>
-  );
-};
+  </Layout>
+);
 
 export default BasicLayout;

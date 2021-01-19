@@ -5,13 +5,11 @@ import FormItem, { FormItemPropTypes } from '@/components/form-item';
 
 const { Password } = Input;
 
-const PasswordItem = ({ field, label, rules, ...restProps }) => {
-  return (
-    <FormItem field={field} label={label} rules={rules}>
-      <Password placeholder="请输入" autoComplete="off" {...restProps} />
-    </FormItem>
-  );
-};
+const PasswordItem = ({ field, label, rules, ...restProps }) => (
+  <FormItem field={field} label={label} rules={rules}>
+    <Password placeholder="请输入" autoComplete="off" {...restProps} />
+  </FormItem>
+);
 
 PasswordItem.propTypes = FormItemPropTypes;
 

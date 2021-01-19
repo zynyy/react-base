@@ -24,17 +24,11 @@ const FILE_STRING_TAG = {
   blob: '[object Blob]',
 };
 
-const checkBOMType = (value, type) => {
-  return getTag(value) === BOM_STRING_TAG[type];
-};
+const checkBOMType = (value, type) => getTag(value) === BOM_STRING_TAG[type];
 
-const checkDOMType = (value, type) => {
-  return getTag(value) === DOM_STRING_TAG[type];
-};
+const checkDOMType = (value, type) => getTag(value) === DOM_STRING_TAG[type];
 
-const checkFileType = (value, type) => {
-  return getTag(value) === FILE_STRING_TAG[type];
-};
+const checkFileType = (value, type) => getTag(value) === FILE_STRING_TAG[type];
 
 /**
  *
@@ -42,9 +36,7 @@ const checkFileType = (value, type) => {
  * isWindow(window) || isWindow(globalThis)
  *  => true
  */
-export const isWindow = (value) => {
-  return checkBOMType(value, 'window');
-};
+export const isWindow = (value) => checkBOMType(value, 'window');
 
 /**
  *
@@ -52,9 +44,7 @@ export const isWindow = (value) => {
  *  isDocument(document)
  *  => true
  */
-export const isDocument = (value) => {
-  return checkBOMType(value, 'document');
-};
+export const isDocument = (value) => checkBOMType(value, 'document');
 
 /**
  *
@@ -62,9 +52,7 @@ export const isDocument = (value) => {
  * isNavigator(navigator)
  *  => true
  */
-export const isNavigator = (value) => {
-  return checkBOMType(value, 'navigator');
-};
+export const isNavigator = (value) => checkBOMType(value, 'navigator');
 
 /**
  *
@@ -72,9 +60,7 @@ export const isNavigator = (value) => {
  * isLocation(location)
  *  => true
  */
-export const isLocation = (value) => {
-  return checkBOMType(value, 'location');
-};
+export const isLocation = (value) => checkBOMType(value, 'location');
 
 /**
  *
@@ -82,18 +68,14 @@ export const isLocation = (value) => {
  * isScreen(screen)
  *  => true
  */
-export const isScreen = (value) => {
-  return checkBOMType(value, 'screen');
-};
+export const isScreen = (value) => checkBOMType(value, 'screen');
 /**
  *
  * @param {*} value
  * isHistory(history)
  *  => true
  */
-export const isHistory = (value) => {
-  return checkBOMType(value, 'history');
-};
+export const isHistory = (value) => checkBOMType(value, 'history');
 /**
  *
  * @param {*} value
@@ -101,9 +83,7 @@ export const isHistory = (value) => {
  * isStorage(storage) ||
  *  => true
  */
-export const isStorage = (value) => {
-  return checkBOMType(value, 'storage');
-};
+export const isStorage = (value) => checkBOMType(value, 'storage');
 
 /**
  *
@@ -112,9 +92,7 @@ export const isStorage = (value) => {
  * isMutationObserver(mutationObserver) ||
  *  => true
  */
-export const isMutationObserver = (value) => {
-  return checkDOMType(value, 'mutationObserver');
-};
+export const isMutationObserver = (value) => checkDOMType(value, 'mutationObserver');
 
 /**
  * @param {*} value
@@ -122,9 +100,7 @@ export const isMutationObserver = (value) => {
  *  isFileReader(render)
  *  => true
  */
-export const isFileReader = (value) => {
-  return checkFileType(value, 'fileReader');
-};
+export const isFileReader = (value) => checkFileType(value, 'fileReader');
 
 /**
  *
@@ -133,9 +109,7 @@ export const isFileReader = (value) => {
  *  isFile(file)
  *  => true
  */
-export const isFile = (value) => {
-  return checkFileType(value, 'file');
-};
+export const isFile = (value) => checkFileType(value, 'file');
 
 /**
  *
@@ -144,6 +118,4 @@ export const isFile = (value) => {
  *  isBlob(blob)
  *  => true
  */
-export const isBlob = (value) => {
-  return checkFileType(value, 'blob');
-};
+export const isBlob = (value) => checkFileType(value, 'blob');

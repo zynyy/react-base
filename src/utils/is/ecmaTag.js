@@ -42,9 +42,7 @@ const ECMA_STRING_TAG = {
   weakSet: '[object WeakSet]', // 457
 };
 
-const checkECMAType = (value, type) => {
-  return getTag(value) === ECMA_STRING_TAG[type];
-};
+const checkECMAType = (value, type) => getTag(value) === ECMA_STRING_TAG[type];
 
 /**
  *
@@ -52,9 +50,7 @@ const checkECMAType = (value, type) => {
  * isNull(null)
  *  => true
  */
-export const isNull = (value) => {
-  return checkECMAType(value, 'null');
-};
+export const isNull = (value) => checkECMAType(value, 'null');
 
 /**
  *
@@ -62,9 +58,7 @@ export const isNull = (value) => {
  * isUndefined(undefined)
  *  => true
  */
-export const isUndefined = (value) => {
-  return checkECMAType(value, 'undefined');
-};
+export const isUndefined = (value) => checkECMAType(value, 'undefined');
 
 /**
  *
@@ -72,9 +66,7 @@ export const isUndefined = (value) => {
  * isString('')
  * => true
  */
-export const isString = (value) => {
-  return checkECMAType(value, 'string');
-};
+export const isString = (value) => checkECMAType(value, 'string');
 
 /**
  *
@@ -82,9 +74,7 @@ export const isString = (value) => {
  * isObject({})
  * => true
  */
-export const isObject = (value) => {
-  return checkECMAType(value, 'object');
-};
+export const isObject = (value) => checkECMAType(value, 'object');
 
 /**
  *
@@ -92,9 +82,7 @@ export const isObject = (value) => {
  * isNumber(0)
  *  => true
  */
-export const isNumber = (value) => {
-  return checkECMAType(value, 'number');
-};
+export const isNumber = (value) => checkECMAType(value, 'number');
 
 /**
  *
@@ -103,9 +91,7 @@ export const isNumber = (value) => {
  * isBigInt(bigInt)
  *  => true
  */
-export const isBigInt = (value) => {
-  return checkECMAType(value, 'bigInt');
-};
+export const isBigInt = (value) => checkECMAType(value, 'bigInt');
 
 /**
  *
@@ -113,9 +99,7 @@ export const isBigInt = (value) => {
  * isBoolean(false)
  *  => true
  */
-export const isBoolean = (value) => {
-  return checkECMAType(value, 'boolean');
-};
+export const isBoolean = (value) => checkECMAType(value, 'boolean');
 
 /**
  *
@@ -124,9 +108,7 @@ export const isBoolean = (value) => {
  * isSymbol(symbol)
  *  => true
  */
-export const isSymbol = (value) => {
-  return checkECMAType(value, 'symbol');
-};
+export const isSymbol = (value) => checkECMAType(value, 'symbol');
 
 /**
  *
@@ -135,9 +117,7 @@ export const isSymbol = (value) => {
  * isFunction(func)
  *  => true
  */
-export const isFunction = (value) => {
-  return checkECMAType(value, 'function');
-};
+export const isFunction = (value) => checkECMAType(value, 'function');
 
 /**
  *
@@ -146,9 +126,7 @@ export const isFunction = (value) => {
  * isAsyncFunction(func)
  *  => true
  */
-export const isAsyncFunction = (value) => {
-  return checkECMAType(value, 'AsyncFunction');
-};
+export const isAsyncFunction = (value) => checkECMAType(value, 'AsyncFunction');
 
 /**
  *
@@ -157,9 +135,7 @@ export const isAsyncFunction = (value) => {
  * isGeneratorFunction(func)
  *  => true
  */
-export const isGeneratorFunction = (value) => {
-  return checkECMAType(value, 'generatorFunction');
-};
+export const isGeneratorFunction = (value) => checkECMAType(value, 'generatorFunction');
 
 /**
  *
@@ -168,9 +144,7 @@ export const isGeneratorFunction = (value) => {
  * isAsyncGeneratorFunction(func)
  *  => true
  */
-export const isAsyncGeneratorFunction = (value) => {
-  return checkECMAType(value, 'asyncGeneratorFunction');
-};
+export const isAsyncGeneratorFunction = (value) => checkECMAType(value, 'asyncGeneratorFunction');
 
 /**
  *
@@ -182,9 +156,7 @@ export const isAsyncGeneratorFunction = (value) => {
  * isPromise(asyncFunc())
  *  => true
  */
-export const isPromise = (value) => {
-  return checkECMAType(value, 'promise');
-};
+export const isPromise = (value) => checkECMAType(value, 'promise');
 
 /**
  *
@@ -192,9 +164,7 @@ export const isPromise = (value) => {
  * isArray([])
  *  => true
  */
-export const isArray = (value) => {
-  return checkECMAType(value, 'array');
-};
+export const isArray = (value) => checkECMAType(value, 'array');
 
 /**
  *
@@ -203,9 +173,7 @@ export const isArray = (value) => {
  * isInt8Array(int8Array)
  *  => true
  */
-export const isInt8Array = (value) => {
-  return checkECMAType(value, 'int8Array');
-};
+export const isInt8Array = (value) => checkECMAType(value, 'int8Array');
 
 /**
  *
@@ -214,9 +182,7 @@ export const isInt8Array = (value) => {
  * isUint8Array(uint8Array)
  *  => true
  */
-export const isUint8Array = (value) => {
-  return checkECMAType(value, 'uint8Array');
-};
+export const isUint8Array = (value) => checkECMAType(value, 'uint8Array');
 
 /**
  *
@@ -225,9 +191,7 @@ export const isUint8Array = (value) => {
  * isUint8ClampedArray(uint8ClampedArray)
  *  => true
  */
-export const isUint8ClampedArray = (value) => {
-  return checkECMAType(value, 'uint8ClampedArray');
-};
+export const isUint8ClampedArray = (value) => checkECMAType(value, 'uint8ClampedArray');
 
 /**
  *
@@ -236,9 +200,7 @@ export const isUint8ClampedArray = (value) => {
  * isInt16Array(int16Array)
  *  => true
  */
-export const isInt16Array = (value) => {
-  return checkECMAType(value, 'int16Array');
-};
+export const isInt16Array = (value) => checkECMAType(value, 'int16Array');
 
 /**
  *
@@ -247,9 +209,7 @@ export const isInt16Array = (value) => {
  * isUint16Array(uint16Array)
  *  => true
  */
-export const isUint16Array = (value) => {
-  return checkECMAType(value, 'uint16Array');
-};
+export const isUint16Array = (value) => checkECMAType(value, 'uint16Array');
 
 /**
  *
@@ -258,9 +218,7 @@ export const isUint16Array = (value) => {
  * isInt32Array(int32Array)
  *  => true
  */
-export const isInt32Array = (value) => {
-  return checkECMAType(value, 'int32Array');
-};
+export const isInt32Array = (value) => checkECMAType(value, 'int32Array');
 
 /**
  *
@@ -269,9 +227,7 @@ export const isInt32Array = (value) => {
  * isUint32Array(uint32Array)
  *  => true
  */
-export const isUint32Array = (value) => {
-  return checkECMAType(value, 'uint32Array');
-};
+export const isUint32Array = (value) => checkECMAType(value, 'uint32Array');
 
 /**
  *
@@ -280,9 +236,7 @@ export const isUint32Array = (value) => {
  * isFloat32Array(float32Array)
  *  => true
  */
-export const isFloat32Array = (value) => {
-  return checkECMAType(value, 'float32Array');
-};
+export const isFloat32Array = (value) => checkECMAType(value, 'float32Array');
 
 /**
  *
@@ -291,9 +245,7 @@ export const isFloat32Array = (value) => {
  * isFloat64Array(float64Array)
  *  => true
  */
-export const isFloat64Array = (value) => {
-  return checkECMAType(value, 'float64Array');
-};
+export const isFloat64Array = (value) => checkECMAType(value, 'float64Array');
 
 /**
  *
@@ -302,9 +254,7 @@ export const isFloat64Array = (value) => {
  * isBigUint64Array(bigUint64Array)
  *  => true
  */
-export const isBigUint64Array = (value) => {
-  return checkECMAType(value, 'bigUint64Array');
-};
+export const isBigUint64Array = (value) => checkECMAType(value, 'bigUint64Array');
 
 /**
  *
@@ -313,9 +263,7 @@ export const isBigUint64Array = (value) => {
  * isBigInt64Array(bigInt64Array)
  *  => true
  */
-export const isBigInt64Array = (value) => {
-  return checkECMAType(value, 'bigInt64Array');
-};
+export const isBigInt64Array = (value) => checkECMAType(value, 'bigInt64Array');
 
 /**
  *
@@ -324,9 +272,7 @@ export const isBigInt64Array = (value) => {
  * isArrayBuffer(arrayBuffer)
  *  => true
  */
-export const isArrayBuffer = (value) => {
-  return checkECMAType(value, 'arrayBuffer');
-};
+export const isArrayBuffer = (value) => checkECMAType(value, 'arrayBuffer');
 
 /**
  *
@@ -336,9 +282,7 @@ export const isArrayBuffer = (value) => {
  * isDataView(dataView)
  *  => true
  */
-export const isDataView = (value) => {
-  return checkECMAType(value, 'dataView');
-};
+export const isDataView = (value) => checkECMAType(value, 'dataView');
 
 /**
  *
@@ -347,9 +291,7 @@ export const isDataView = (value) => {
  * isSharedArrayBuffer(sharedArrayBuffer)
  *  => true
  */
-export const isSharedArrayBuffer = (value) => {
-  return checkECMAType(value, 'sharedArrayBuffer');
-};
+export const isSharedArrayBuffer = (value) => checkECMAType(value, 'sharedArrayBuffer');
 
 /**
  *
@@ -357,9 +299,7 @@ export const isSharedArrayBuffer = (value) => {
  * isAtomics(Atomics)
  * => true
  */
-export const isAtomics = (value) => {
-  return checkECMAType(value, 'atomics');
-};
+export const isAtomics = (value) => checkECMAType(value, 'atomics');
 
 /**
  *
@@ -367,9 +307,7 @@ export const isAtomics = (value) => {
  * isJSON(JSON)
  *  => true
  */
-export const isJSON = (value) => {
-  return checkECMAType(value, 'json');
-};
+export const isJSON = (value) => checkECMAType(value, 'json');
 
 /**
  *
@@ -378,9 +316,7 @@ export const isJSON = (value) => {
  * isError(error)
  *  => true
  */
-export const isError = (value) => {
-  return checkECMAType(value, 'error');
-};
+export const isError = (value) => checkECMAType(value, 'error');
 
 /**
  *
@@ -389,9 +325,7 @@ export const isError = (value) => {
  * isRegExp(regExp)
  *  => true
  */
-export const isRegExp = (value) => {
-  return checkECMAType(value, 'regExp');
-};
+export const isRegExp = (value) => checkECMAType(value, 'regExp');
 
 /**
  *
@@ -400,9 +334,7 @@ export const isRegExp = (value) => {
  * isDate(date)
  *  => true
  */
-export const isDate = (value) => {
-  return checkECMAType(value, 'date');
-};
+export const isDate = (value) => checkECMAType(value, 'date');
 
 /**
  *
@@ -410,9 +342,7 @@ export const isDate = (value) => {
  * isMath(Math)
  *  => true
  */
-export const isMath = (value) => {
-  return checkECMAType(value, 'math');
-};
+export const isMath = (value) => checkECMAType(value, 'math');
 
 /**
  *
@@ -421,9 +351,7 @@ export const isMath = (value) => {
  * isMap(map)
  *  => true
  */
-export const isMap = (value) => {
-  return checkECMAType(value, 'map');
-};
+export const isMap = (value) => checkECMAType(value, 'map');
 
 /**
  *
@@ -432,9 +360,7 @@ export const isMap = (value) => {
  * isWeakMap(weakMap)
  *  => true
  */
-export const isWeakMap = (value) => {
-  return checkECMAType(value, 'weakMap');
-};
+export const isWeakMap = (value) => checkECMAType(value, 'weakMap');
 
 /**
  *
@@ -443,9 +369,7 @@ export const isWeakMap = (value) => {
  * isSet(set)
  *  => true
  */
-export const isSet = (value) => {
-  return checkECMAType(value, 'set');
-};
+export const isSet = (value) => checkECMAType(value, 'set');
 
 /**
  *
@@ -454,6 +378,4 @@ export const isSet = (value) => {
  * isWeakSet(weakSet)
  *  => true
  */
-export const isWeakSet = (value) => {
-  return checkECMAType(value, 'weakSet');
-};
+export const isWeakSet = (value) => checkECMAType(value, 'weakSet');

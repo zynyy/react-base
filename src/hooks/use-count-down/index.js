@@ -16,9 +16,7 @@ const useCountDown = (options) => {
 
   const startTimer = useCallback(() => {
     intervalID.current = setInterval(() => {
-      setCountDown((count) => {
-        return count - delay / 1000;
-      });
+      setCountDown((count) => count - delay / 1000);
     }, delay);
   }, [delay]);
 
@@ -39,11 +37,12 @@ const useCountDown = (options) => {
     }
   }, [startTimer, countdownOver]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       clearCountdown();
-    };
-  }, [clearCountdown]);
+    },
+    [clearCountdown],
+  );
 
   useEffect(() => {
     if (countDown === endCount) {

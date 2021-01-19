@@ -138,12 +138,11 @@ serviceInstance.interceptors.response.use(
  * @returns {Promise<AxiosResponse<any>>}
  * @constructor
  */
-export const HTTPGet = (url, params, config) => {
-  return serviceInstance.get(url, {
+export const HTTPGet = (url, params, config) =>
+  serviceInstance.get(url, {
     ...config,
     params,
   });
-};
 
 /**
  *
@@ -153,9 +152,7 @@ export const HTTPGet = (url, params, config) => {
  * @returns {Promise<AxiosResponse<any>>}
  * @constructor
  */
-export const HTTPPost = (url, data, config) => {
-  return serviceInstance.post(url, data, config);
-};
+export const HTTPPost = (url, data, config) => serviceInstance.post(url, data, config);
 
 /**
  *
@@ -164,12 +161,11 @@ export const HTTPPost = (url, data, config) => {
  * @returns {Promise<AxiosResponse<T>>}
  * @constructor
  */
-export const HTTPDelete = (url, data, config) => {
-  return serviceInstance.delete(url, {
+export const HTTPDelete = (url, data, config) =>
+  serviceInstance.delete(url, {
     ...config,
     data,
   });
-};
 
 /**
  *
@@ -179,9 +175,7 @@ export const HTTPDelete = (url, data, config) => {
  * @returns {Promise<AxiosResponse<any>>}
  * @constructor
  */
-export const HttpPut = (url, data, config) => {
-  return serviceInstance.put(url, data, config);
-};
+export const HttpPut = (url, data, config) => serviceInstance.put(url, data, config);
 
 /**
  * 上传到阿里云OOS 服务
@@ -193,8 +187,8 @@ const uploadALiYunOOSFile = (params) => {
   return axios.post(url, params);
 };
 
-export const generateUploadPromise = async (fileInfo, ossSignatureConfig) => {
-  return new Promise((resolve, reject) => {
+export const generateUploadPromise = async (fileInfo, ossSignatureConfig) =>
+  new Promise((resolve, reject) => {
     const { accessid, signature, policy, dir } = ossSignatureConfig;
 
     const { suffix, file } = fileInfo;
@@ -235,7 +229,6 @@ export const generateUploadPromise = async (fileInfo, ossSignatureConfig) => {
         reject(err);
       });
   });
-};
 
 export const uploadOOSFile = async (fileList = [], ossSignatureConfig) => {
   if (!fileList.length) return Promise.resolve([]);

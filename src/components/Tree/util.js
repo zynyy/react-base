@@ -24,9 +24,7 @@ export const transformTreeData = (data) => {
   const treeData = data.map((current) => {
     const { pId, name, id } = current;
 
-    const exist = data.some((item) => {
-      return pId ? item.id === pId : true;
-    });
+    const exist = data.some((item) => (pId ? item.id === pId : true));
 
     const obj = {
       parentId: exist ? pId : undefined,

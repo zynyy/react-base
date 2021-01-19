@@ -83,54 +83,52 @@ const Client = ({ match }) => {
       });
   };
 
-  const generateClumns = () => {
-    return [
-      {
-        title: '行号',
-        dataIndex: 'line',
-        render: (text, record, index) => index + 1,
-      },
-      {
-        title: '公司名称',
-        dataIndex: 'clientName',
-      },
-      {
-        title: '联系人',
-        dataIndex: 'contactName',
-      },
-      {
-        title: '手机号',
-        dataIndex: 'contactMobile',
-      },
-      {
-        title: '备注',
-        dataIndex: 'remark',
-      },
-      {
-        title: '操作',
-        dataIndex: 'rowKey',
-        render: (text, record) => {
-          const { id, clientName, highId } = record;
-          return (
-            <>
-              <Popconfirm
-                title={`是否确定删除-${clientName}`}
-                onConfirm={() => handleDeleteConfirm(highId)}
-              >
-                <Button type="link">
-                  <DeleteOutlined />
-                </Button>
-              </Popconfirm>
+  const generateClumns = () => [
+    {
+      title: '行号',
+      dataIndex: 'line',
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: '公司名称',
+      dataIndex: 'clientName',
+    },
+    {
+      title: '联系人',
+      dataIndex: 'contactName',
+    },
+    {
+      title: '手机号',
+      dataIndex: 'contactMobile',
+    },
+    {
+      title: '备注',
+      dataIndex: 'remark',
+    },
+    {
+      title: '操作',
+      dataIndex: 'rowKey',
+      render: (text, record) => {
+        const { id, clientName, highId } = record;
+        return (
+          <>
+            <Popconfirm
+              title={`是否确定删除-${clientName}`}
+              onConfirm={() => handleDeleteConfirm(highId)}
+            >
+              <Button type="link">
+                <DeleteOutlined />
+              </Button>
+            </Popconfirm>
 
-              <Link to={`${path}/new/${id}/${highId}`}>
-                <EditOutlined />
-              </Link>
-            </>
-          );
-        },
+            <Link to={`${path}/new/${id}/${highId}`}>
+              <EditOutlined />
+            </Link>
+          </>
+        );
       },
-    ];
-  };
+    },
+  ];
 
   const [columns] = useState(generateClumns());
 
@@ -158,14 +156,12 @@ const Client = ({ match }) => {
     }
   };
 
-  const renderTableTitle = () => {
-    return (
-      <Link to={`${path}/new`}>
-        <PlusOutlined />
-        新增
-      </Link>
-    );
-  };
+  const renderTableTitle = () => (
+    <Link to={`${path}/new`}>
+      <PlusOutlined />
+      新增
+    </Link>
+  );
 
   useEffect(() => {
     fetchData();

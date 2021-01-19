@@ -9,23 +9,21 @@ const MainClass = lazy(() => import('@/pages/main/MainClass'));
 const Login = lazy(() => import('@/pages/login'));
 const LoginClass = lazy(() => import('@/pages/login/LoginClass'));
 
-const App = () => {
-  return (
-    <Suspense fallback={<PageLoading />}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/main" component={Main} />
-          <Route path="/main-class" component={MainClass} />
-          <Route path="/login" component={Login} />
-          <Route path="/login-class" component={LoginClass} />
-          <Route exact path="/">
-            <Redirect to="/login" />
-          </Route>
-          <Route component={NotPage} />
-        </Switch>
-      </BrowserRouter>
-    </Suspense>
-  );
-};
+const App = () => (
+  <Suspense fallback={<PageLoading />}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/main" component={Main} />
+        <Route path="/main-class" component={MainClass} />
+        <Route path="/login" component={Login} />
+        <Route path="/login-class" component={LoginClass} />
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route component={NotPage} />
+      </Switch>
+    </BrowserRouter>
+  </Suspense>
+);
 
 export default App;

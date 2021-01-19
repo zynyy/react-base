@@ -24,9 +24,7 @@ export const transformTreeData = (data) => {
   const treeData = data.map((current) => {
     const { pid, name, id } = current;
 
-    const exist = data.some((item) => {
-      return pid ? item.id === pid : true;
-    });
+    const exist = data.some((item) => (pid ? item.id === pid : true));
 
     const obj = {
       ...current,

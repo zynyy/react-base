@@ -1,6 +1,4 @@
-const isNumeric = (value) => {
-  return !isNaN(parseFloat(value)) && isFinite(value);
-};
+const isNumeric = (value) => !isNaN(parseFloat(value)) && isFinite(value);
 
 const NUMBER_REG = /^([+-])?0*(\d+)(\.)?(\d+)?$/;
 
@@ -147,9 +145,12 @@ class DigitalToChinese {
 
     const encodeInteger = this.transformInteger(integer);
 
-    const encodeDecimal = `${decimal || ''}`.split('').reduce((accumulate, currentValue) => {
-      return `${accumulate}${characterSet.charAt(currentValue)}`;
-    }, '');
+    const encodeDecimal = `${decimal || ''}`
+      .split('')
+      .reduce(
+        (accumulate, currentValue) => `${accumulate}${characterSet.charAt(currentValue)}`,
+        '',
+      );
 
     const encodeNum = `${isNegative ? negative : ''}${encodeInteger}${
       decimal ? dot : ''
@@ -158,9 +159,7 @@ class DigitalToChinese {
     return this.#format(encodeNum);
   };
 
-  #getDigitQuantifierIndex = (index) => {
-    return index >= 5 ? (index - 4) * 4 + 4 : index;
-  };
+  #getDigitQuantifierIndex = (index) => (index >= 5 ? (index - 4) * 4 + 4 : index);
 
   decode = (characterNum) => {
     if (!characterNum) return characterNum;
@@ -284,11 +283,13 @@ class DigitalToChinese {
 
     const encodeDecimal = `${decimal || ''}`
       .split('')
-      .reduce((accumulate, currentValue, currentIndex) => {
-        return `${accumulate}${characterSet.charAt(currentValue)}${monetaryUnit.charAt(
-          currentIndex + 1,
-        )}`;
-      }, '');
+      .reduce(
+        (accumulate, currentValue, currentIndex) =>
+          `${accumulate}${characterSet.charAt(currentValue)}${monetaryUnit.charAt(
+            currentIndex + 1,
+          )}`,
+        '',
+      );
 
     const encodeNum = `${currency}${
       isNegative ? negative : ''
